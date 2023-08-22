@@ -21,5 +21,8 @@
                 "ByteXR\\LaravelPennantLaunchDarkly\\LaravelPennantLaunchDarklyServiceProvider"
             ]
         }
+    },
+    "require-dev": {
+        "laravel/pint": "^1.11"
     }
 }

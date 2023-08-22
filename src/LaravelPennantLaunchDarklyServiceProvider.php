@@ -2,7 +2,6 @@
 
 namespace ByteXR\LaravelPennantLaunchDarkly;
 
-
 use ByteXR\LaravelPennantLaunchDarkly\Drivers\LaunchDarklyFeatureDriver;
 use Laravel\Pennant\Feature;
 

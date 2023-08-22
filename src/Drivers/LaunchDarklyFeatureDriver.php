@@ -27,23 +27,24 @@ class LaunchDarklyFeatureDriver implements Driver
     public function defined(): array
     {
         $context = LDContext::builder('laravel-pennant')->build();
+
         return array_keys($this->client->allFlagsState($context)->toValuesMap());
     }
 
     public function getAll(array $features): array
     {
         return Collection::make($features)
-                         ->map(fn($scopes, $feature) => Collection::make($scopes)
-                                                                  ->map(fn($scope) => $this->get($feature, $scope))
-                                                                  ->all())
-                         ->all();
+            ->map(fn ($scopes, $feature) => Collection::make($scopes)
+                ->map(fn ($scope) => $this->get($feature, $scope))
+                ->all())
+            ->all();
     }
 
     public function get(string $feature, mixed $scope): mixed
     {
         dd($scope);
-        if(!$scope instanceof HasLaunchDarklyContext) {
-            throw new ScopeDoesNotHaveInterfaceException('Scope [' .get_class($scope) . '] does not implement HasLaunchDarklyContext interface.');
+        if (! $scope instanceof HasLaunchDarklyContext) {
+            throw new ScopeDoesNotHaveInterfaceException('Scope ['.get_class($scope).'] does not implement HasLaunchDarklyContext interface.');
         }
 
         $context = $scope->getLaunchDarklyContext();
@@ -66,7 +67,7 @@ class LaunchDarklyFeatureDriver implements Driver
         throw new UpdateLaunchDarklyFlagException();
     }
 
-    public function purge(array|null $features): void
+    public function purge(?array $features): void
     {
         throw new UpdateLaunchDarklyFlagException();
     }
