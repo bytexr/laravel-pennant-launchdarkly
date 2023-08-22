@@ -4,6 +4,7 @@ namespace ByteXR\LaravelPennantLaunchDarkly\Drivers;
 
 use ByteXR\LaravelPennantLaunchDarkly\Concerns\HasLaunchDarklyContext;
 use ByteXR\LaravelPennantLaunchDarkly\Exceptions\ScopeDoesNotHaveInterfaceException;
+use ByteXR\LaravelPennantLaunchDarkly\Exceptions\UpdateLaunchDarklyFlagException;
 use Illuminate\Support\Collection;
 use Laravel\Pennant\Contracts\Driver;
 use LaunchDarkly\LDClient;
@@ -20,6 +21,7 @@ class LaunchDarklyFeatureDriver implements Driver
 
     public function define(string $feature, callable $resolver): void
     {
+        throw new UpdateLaunchDarklyFlagException();
     }
 
     public function defined(): array
@@ -39,25 +41,33 @@ class LaunchDarklyFeatureDriver implements Driver
 
     public function get(string $feature, mixed $scope): mixed
     {
+        dd($scope);
         if(!$scope instanceof HasLaunchDarklyContext) {
             throw new ScopeDoesNotHaveInterfaceException('Scope [' .get_class($scope) . '] does not implement HasLaunchDarklyContext interface.');
         }
-        dd(3);
+
+        $context = $scope->getLaunchDarklyContext();
+
+        return $this->client->variation($feature, $context);
     }
 
     public function set(string $feature, mixed $scope, mixed $value): void
     {
+        throw new UpdateLaunchDarklyFlagException();
     }
 
     public function setForAllScopes(string $feature, mixed $value): void
     {
+        throw new UpdateLaunchDarklyFlagException();
     }
 
     public function delete(string $feature, mixed $scope): void
     {
+        throw new UpdateLaunchDarklyFlagException();
     }
 
     public function purge(array|null $features): void
     {
+        throw new UpdateLaunchDarklyFlagException();
     }
 }
