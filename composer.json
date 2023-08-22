@@ -1,5 +1,8 @@
 {
     "name": "bytexr/laravel-pennant-launchdarkly",
+    "description": "Laravel Pennant LaunchDarkly Driver",
+    "keywords": ["launchdarkly", "laravel", "pennant", "driver"],
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "ByteXR\\LaravelPennantLaunchDarkly\\": "src/"
@@ -8,7 +11,7 @@
     "authors": [
         {
             "name": "Eddie Rusinskas",
-            "email": "erusinskas@wonde.com"
+            "email": "info@imphus.com"
         }
     ],
     "require": {
