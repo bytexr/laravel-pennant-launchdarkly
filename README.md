@@ -1,9 +1,9 @@
 # Laravel Pennant LaunchDarkly
 
 <p align="center">
-<a href="https://packagist.org/packages/bytexr/laravel-scout-opensearch"><img src="https://img.shields.io/packagist/dt/bytexr/laravel-scout-opensearch" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/bytexr/laravel-scout-opensearch"><img src="https://img.shields.io/packagist/v/bytexr/laravel-scout-opensearch" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/bytexr/laravel-scout-opensearch"><img src="https://img.shields.io/packagist/l/bytexr/laravel-scout-opensearch" alt="License"></a>
+<a href="https://packagist.org/packages/bytexr/laravel-pennant-launchdarkly"><img src="https://img.shields.io/packagist/dt/bytexr/laravel-pennant-launchdarkly" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/bytexr/laravel-pennant-launchdarkly"><img src="https://img.shields.io/packagist/v/bytexr/laravel-pennant-launchdarkly" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/bytexr/laravel-pennant-launchdarkly"><img src="https://img.shields.io/packagist/l/bytexr/laravel-pennant-launchdarkly" alt="License"></a>
 </p>
 
 ## Introduction
