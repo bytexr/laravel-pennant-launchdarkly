@@ -1,0 +1,25 @@
+{
+    "name": "bytexr/laravel-pennant-launchdarkly",
+    "autoload": {
+        "psr-4": {
+            "ByteXR\\LaravelPennantLaunchDarkly\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Eddie Rusinskas",
+            "email": "erusinskas@wonde.com"
+        }
+    ],
+    "require": {
+        "laravel/pennant": "^1.4",
+        "launchdarkly/server-sdk": "^5.1"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ByteXR\\LaravelPennantLaunchDarkly\\LaravelPennantLaunchDarklyServiceProvider"
+            ]
+        }
+    }
+}
