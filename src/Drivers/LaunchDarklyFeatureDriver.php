@@ -16,7 +16,7 @@ class LaunchDarklyFeatureDriver implements Driver
 
     public function __construct()
     {
-        $this->client = new LDClient(config('services.launch-darkly.key'));
+        $this->client = new LDClient(config('services.launch-darkly.key'), config('services.launch-darkly.options'));
     }
 
     public function define(string $feature, callable $resolver): void
