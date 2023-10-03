@@ -42,11 +42,15 @@ class LaunchDarklyFeatureDriver implements Driver
 
     public function get(string $feature, mixed $scope): mixed
     {
-        if (! $scope instanceof HasLaunchDarklyContext) {
-            throw new ScopeDoesNotHaveInterfaceException('Scope ['.get_class($scope).'] does not implement HasLaunchDarklyContext interface.');
-        }
+        if(!empty($scope)) {
+            if (!$scope instanceof HasLaunchDarklyContext) {
+                throw new ScopeDoesNotHaveInterfaceException('Scope [' . get_class($scope) . '] does not implement HasLaunchDarklyContext interface.');
+            }
 
-        $context = $scope->getLaunchDarklyContext();
+            $context = $scope->getLaunchDarklyContext();
+        } else {
+            $context = LDContext::builder('user')->build();
+        }
 
         return $this->client->variation($feature, $context);
     }
