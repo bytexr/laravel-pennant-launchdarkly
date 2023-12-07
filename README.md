@@ -23,7 +23,8 @@ return [
     ...
 
     'launch-darkly' => [
-        'key' => env('LAUNCH_DARKLY_KEY')
+        'key'     => env('LAUNCH_DARKLY_KEY'),
+        'options' => [],
     ]
 
 ];
