@@ -57,11 +57,21 @@ class LaunchDarklyFeatureDriver implements Driver
         }
 
         if (Config::get('pennant-launchdarkly.cache')) {
-            return Cache::remember(
-                'launchdarkly-' . $feature . '-' . Hash::make($context->__toString()),
+            $cacheKey = 'launchdarkly-' . $feature . '-' . md5($context->__toString());
+
+            if (Cache::has($cacheKey)) {
+                return Cache::get($cacheKey);
+            }
+
+            $response = $this->client->variation($feature, $context);
+
+            Cache::remember(
+                $cacheKey,
                 Carbon::now()->addSeconds(Config::get('pennant-launchdarkly.cache_ttl')),
-                fn() => $this->client->variation($feature, $context)
+                fn() => $response
             );
+
+            return $response;
         }
 
         return $this->client->variation($feature, $context);
