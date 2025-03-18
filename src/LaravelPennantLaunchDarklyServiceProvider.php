@@ -12,5 +12,9 @@ class LaravelPennantLaunchDarklyServiceProvider extends \Illuminate\Support\Serv
         Feature::extend('launch-darkly', function () {
             return new LaunchDarklyFeatureDriver();
         });
+
+        $this->publishes([
+            __DIR__.'/../config/pennant-launchdarkly.php' => config_path('pennant-launchdarkly.php'),
+        ]);
     }
 }

@@ -5,7 +5,11 @@ namespace ByteXR\LaravelPennantLaunchDarkly\Drivers;
 use ByteXR\LaravelPennantLaunchDarkly\Concerns\HasLaunchDarklyContext;
 use ByteXR\LaravelPennantLaunchDarkly\Exceptions\ScopeDoesNotHaveInterfaceException;
 use ByteXR\LaravelPennantLaunchDarkly\Exceptions\UpdateLaunchDarklyFlagException;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Pennant\Contracts\Driver;
 use LaunchDarkly\LDClient;
 use LaunchDarkly\LDContext;
@@ -34,15 +38,15 @@ class LaunchDarklyFeatureDriver implements Driver
     public function getAll(array $features): array
     {
         return Collection::make($features)
-            ->map(fn ($scopes, $feature) => Collection::make($scopes)
-                ->map(fn ($scope) => $this->get($feature, $scope))
-                ->all())
-            ->all();
+                         ->map(fn($scopes, $feature) => Collection::make($scopes)
+                                                                  ->map(fn($scope) => $this->get($feature, $scope))
+                                                                  ->all())
+                         ->all();
     }
 
     public function get(string $feature, mixed $scope): mixed
     {
-        if(!empty($scope)) {
+        if (!empty($scope)) {
             if (!$scope instanceof HasLaunchDarklyContext) {
                 throw new ScopeDoesNotHaveInterfaceException('Scope [' . get_class($scope) . '] does not implement HasLaunchDarklyContext interface.');
             }
@@ -50,6 +54,14 @@ class LaunchDarklyFeatureDriver implements Driver
             $context = $scope->getLaunchDarklyContext();
         } else {
             $context = LDContext::builder('user')->build();
+        }
+
+        if (Config::get('pennant-launchdarkly.cache')) {
+            return Cache::remember(
+                'launchdarkly-' . $feature . '-' . Hash::make($context->__toString()),
+                Carbon::now()->addSeconds(Config::get('pennant-launchdarkly.cache_ttl')),
+                fn() => $this->client->variation($feature, $context)
+            );
         }
 
         return $this->client->variation($feature, $context);
