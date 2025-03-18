@@ -13,8 +13,11 @@ class LaravelPennantLaunchDarklyServiceProvider extends \Illuminate\Support\Serv
             return new LaunchDarklyFeatureDriver();
         });
 
+        $configPath = __DIR__ . '/../config/pennant-launchdarkly.php';
+
         $this->publishes([
-            __DIR__.'/../config/pennant-launchdarkly.php' => config_path('pennant-launchdarkly.php'),
+            $configPath => config_path('pennant-launchdarkly.php'),
         ]);
+        $this->mergeConfigFrom($configPath, 'pennant-launchdarkly');
     }
 }
