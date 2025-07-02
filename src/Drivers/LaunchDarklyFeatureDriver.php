@@ -16,11 +16,8 @@ use LaunchDarkly\LDContext;
 
 class LaunchDarklyFeatureDriver implements Driver
 {
-    private LDClient $client;
-
     public function __construct(protected LDClient $client)
     {
-        $this->client = new LDClient(config('services.launch-darkly.key'), config('services.launch-darkly.options'));
     }
 
     public function define(string $feature, callable $resolver): void
