@@ -11,7 +11,16 @@ class LaravelPennantLaunchDarklyServiceProvider extends \Illuminate\Support\Serv
 {
     public function register(): void
     {
-        $this->app->singleton(LDClient::class, fn() => new LDClient(config('services.launch-darkly.key'), config('services.launch-darkly.options')));
+        $this->app->singleton(LDClient::class, function () {
+            $fr = LaunchDarkly\Integrations\DynamoDB::featureRequester([
+                "dynamodb_table" => config('services.launch-darkly.dynamodb.table')
+            ]);
+            $config = [
+                ...config('services.launch-darkly.options'),
+                "feature_requester" => $fr
+            ];
+            return new LDClient(config('services.launch-darkly.key'),$config);
+        });
     }
 
     public function boot(): void

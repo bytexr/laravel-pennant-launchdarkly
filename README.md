@@ -24,6 +24,9 @@ return [
 
     'launch-darkly' => [
         'key'     => env('LAUNCH_DARKLY_KEY'),
+        'dynamodb'     => [
+            'table' => env('LAUNCH_DARKLY_DYNAMODB_TABLE')
+        ],
         'options' => [],
     ]
 

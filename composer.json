@@ -16,7 +16,8 @@
     ],
     "require": {
         "laravel/pennant": "^1.4",
-        "launchdarkly/server-sdk": "^5.1"
+        "launchdarkly/server-sdk": "^5.1",
+        "launchdarkly/server-sdk-dynamodb": "^1.3"
     },
     "extra": {
         "laravel": {
