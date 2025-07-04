@@ -2,6 +2,7 @@
 
 namespace ByteXR\LaravelPennantLaunchDarkly;
 
+use Aws\Laravel\AwsFacade;
 use ByteXR\LaravelPennantLaunchDarkly\Drivers\LaunchDarklyFeatureDriver;
 use Illuminate\Contracts\Foundation\Application;
 use Laravel\Pennant\Feature;
@@ -14,7 +15,7 @@ class LaravelPennantLaunchDarklyServiceProvider extends \Illuminate\Support\Serv
     {
         $this->app->singleton(LDClient::class, function () {
             $fr = DynamoDB::featureRequester([
-                "dynamodb_client" => Aws::getDynamoDb(),
+                "dynamodb_client" => AwsFacade::createClient('dynamodb'),
                 "dynamodb_table" => config('services.launch-darkly.dynamodb.table')
             ]);
             $config = [
